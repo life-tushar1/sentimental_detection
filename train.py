@@ -5,6 +5,10 @@ from random import shuffle
 from tqdm import tqdm
 
 
+import tensorflow as tf
+tf.reset_default_graph()
+
+
 TRAIN_DIR='/users/tusharsharma/desktop/project/sentimental_data/data'
 TEST_DIR='/users/tusharsharma/desktop/project/sentimental_data/test'
 IMG_SIZE=50
@@ -79,7 +83,16 @@ convnet = max_pool_2d(convnet, 2)
 convnet = conv_2d(convnet, 64, 2, activation='relu')
 convnet = max_pool_2d(convnet, 2)
 
-convnet = conv_2d(convnet, 128, 2, activation='relu')
+convnet = conv_2d(convnet, 32, 2, activation='relu')
+convnet = max_pool_2d(convnet, 2)
+
+convnet = conv_2d(convnet, 64, 2, activation='relu')
+convnet = max_pool_2d(convnet, 2)
+
+convnet = conv_2d(convnet, 32, 2, activation='relu')
+convnet = max_pool_2d(convnet, 2)
+
+convnet = conv_2d(convnet, 64, 2, activation='relu')
 convnet = max_pool_2d(convnet, 2)
 
 convnet = fully_connected(convnet, 1024, activation='relu')
