@@ -77,22 +77,22 @@ from tflearn.layers.estimator import regression
 
 convnet = input_data(shape=[None, IMG_SIZE, IMG_SIZE, 1], name='input')
 
-convnet = conv_2d(convnet, 16, 2, activation='relu')
+convnet = conv_2d(convnet, 64, 2, activation='relu')
+convnet = max_pool_2d(convnet, 2)
+
+convnet = conv_2d(convnet, 128, 2, activation='relu')
+convnet = max_pool_2d(convnet, 2)
+
+convnet = conv_2d(convnet, 256, 2, activation='relu')
 convnet = max_pool_2d(convnet, 2)
 
 convnet = conv_2d(convnet, 64, 2, activation='relu')
 convnet = max_pool_2d(convnet, 2)
 
-convnet = conv_2d(convnet, 32, 2, activation='relu')
+convnet = conv_2d(convnet, 128, 2, activation='relu')
 convnet = max_pool_2d(convnet, 2)
 
-convnet = conv_2d(convnet, 16, 2, activation='relu')
-convnet = max_pool_2d(convnet, 2)
-
-convnet = conv_2d(convnet, 64, 2, activation='relu')
-convnet = max_pool_2d(convnet, 2)
-
-convnet = conv_2d(convnet, 32, 2, activation='relu')
+convnet = conv_2d(convnet, 256, 2, activation='relu')
 convnet = max_pool_2d(convnet, 2)
 
 
