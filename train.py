@@ -5,8 +5,8 @@ from random import shuffle
 from tqdm import tqdm
 
 
-TRAIN_DIR='/users/tusharsharma/desktop/project/sentimental_detection/data'
-TEST_DIR='/users/tusharsharma/desktop/project/sentimental_detection/test'
+TRAIN_DIR='/users/tusharsharma/desktop/project/sentimental_data/data'
+TEST_DIR='/users/tusharsharma/desktop/project/sentimental_data/test'
 IMG_SIZE=50
 LR=1e-3
 
@@ -79,6 +79,9 @@ convnet = max_pool_2d(convnet, 2)
 convnet = conv_2d(convnet, 64, 2, activation='relu')
 convnet = max_pool_2d(convnet, 2)
 
+convnet = conv_2d(convnet, 128, 2, activation='relu')
+convnet = max_pool_2d(convnet, 2)
+
 convnet = fully_connected(convnet, 1024, activation='relu')
 convnet = dropout(convnet, 0.8)
 
@@ -86,3 +89,7 @@ convnet = fully_connected(convnet, 8, activation='softmax')
 convnet = regression(convnet, optimizer='adam', learning_rate=LR, loss='categorical_crossentropy', name='targets')
 
 model = tflearn.DNN(convnet)
+
+if os.path.exist('{}.meta'.format(MODEL_NAME)):
+    model.load(MODEL_NAME)
+    print "model loaded"
