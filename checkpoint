@@ -1,0 +1,2 @@
+model_checkpoint_path: "/Users/tusharsharma/Desktop/project/sentimental_detection/sentimentaldetection-0.001-test-4-conv-basic"
+all_model_checkpoint_paths: "/Users/tusharsharma/Desktop/project/sentimental_detection/sentimentaldetection-0.001-test-4-conv-basic"

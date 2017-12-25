@@ -14,7 +14,7 @@ TEST_DIR='/users/tusharsharma/desktop/project/sentimental_data/test'
 IMG_SIZE=50
 LR=1e-3
 
-MODEL_NAME ='sentimentaldetection-{}-{}'.format(LR,'9conv-basic')
+MODEL_NAME ='sentimentaldetection-{}-{}'.format(LR,'test-4-conv-basic')
 
 #[neutral,anger,contempt,disgust,fear,happiness,sadness,surprise]
 def label_img(img):
@@ -83,10 +83,7 @@ convnet = max_pool_2d(convnet, 2)
 convnet = conv_2d(convnet, 64, 2, activation='relu')
 convnet = max_pool_2d(convnet, 2)
 
-convnet = conv_2d(convnet, 32, 2, activation='relu')
-convnet = max_pool_2d(convnet, 2)
-
-convnet = conv_2d(convnet, 64, 2, activation='relu')
+convnet = conv_2d(convnet, 128, 2, activation='relu')
 convnet = max_pool_2d(convnet, 2)
 
 convnet = conv_2d(convnet, 32, 2, activation='relu')
@@ -94,6 +91,13 @@ convnet = max_pool_2d(convnet, 2)
 
 convnet = conv_2d(convnet, 64, 2, activation='relu')
 convnet = max_pool_2d(convnet, 2)
+
+convnet = conv_2d(convnet, 128, 2, activation='relu')
+convnet = max_pool_2d(convnet, 2)
+
+
+
+
 
 convnet = fully_connected(convnet, 1024, activation='relu')
 convnet = dropout(convnet, 0.8)
