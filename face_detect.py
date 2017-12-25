@@ -3,8 +3,8 @@ import numpy as np
 import sys
 #test=face_cascade.load('haarcascade_frontalface_default.xml')
 #print(test)
-fc=cv2.CascadeClassifier('/Users/tusharsharma/Downloads/opencv-3.2.0/data/haarcascades/haarcascade_frontalface_default.xml')
-mouth=cv2.CascadeClassifier('/Users/tusharsharma/Downloads/opencv-3.2.0/data/haarcascades/haarcascade_Smile.xml')
+fc=cv2.CascadeClassifier('/Users/tusharsharma/opencv-3.2.0/data/haarcascades/haarcascade_frontalface_default.xml')
+mouth=cv2.CascadeClassifier('/Users/tusharsharma/opencv-3.2.0/data/haarcascades/haarcascade_Smile.xml')
 cam=cv2.VideoCapture(0)
 while True:
     ret, frame = cam.read()
