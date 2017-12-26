@@ -44,10 +44,12 @@ def create_train_data():
         #print img
         if img !='.DS_Store':
             label=label_img(img)
+            #print label
             path=os.path.join(TRAIN_DIR,img)
             img=cv2.resize(cv2.imread(path,cv2.IMREAD_GRAYSCALE),(IMG_SIZE,IMG_SIZE))
             training_data.append([np.array(img),np.array(label)])
     shuffle(training_data)
+    #print training_data
     np.save('train_data.npy',training_data)
     return training_data
 
@@ -63,7 +65,8 @@ def process_test_data():
 
 #train_data=create_train_data()
 train_data=np.load('train_data.npy')
-
+train=train_data[:-500]
+test=train_data[:-500]
 
 import tflearn
 from tflearn.layers.conv import conv_2d, max_pool_2d
@@ -77,23 +80,31 @@ from tflearn.layers.estimator import regression
 
 convnet = input_data(shape=[None, IMG_SIZE, IMG_SIZE, 1], name='input')
 
-convnet = conv_2d(convnet, 64, 2, activation='relu')
-convnet = max_pool_2d(convnet, 2)
-
-convnet = conv_2d(convnet, 128, 2, activation='relu')
-convnet = max_pool_2d(convnet, 2)
-
-convnet = conv_2d(convnet, 256, 2, activation='relu')
+convnet = conv_2d(convnet, 32, 2, activation='relu')
 convnet = max_pool_2d(convnet, 2)
 
 convnet = conv_2d(convnet, 64, 2, activation='relu')
 convnet = max_pool_2d(convnet, 2)
 
-convnet = conv_2d(convnet, 128, 2, activation='relu')
+convnet = conv_2d(convnet, 32, 2, activation='relu')
 convnet = max_pool_2d(convnet, 2)
 
-convnet = conv_2d(convnet, 256, 2, activation='relu')
+convnet = conv_2d(convnet, 64, 2, activation='relu')
 convnet = max_pool_2d(convnet, 2)
+
+convnet = conv_2d(convnet, 32, 2, activation='relu')
+convnet = max_pool_2d(convnet, 2)
+
+convnet = conv_2d(convnet, 64, 2, activation='relu')
+convnet = max_pool_2d(convnet, 2)
+
+convnet = conv_2d(convnet, 32, 2, activation='relu')
+convnet = max_pool_2d(convnet, 2)
+
+convnet = conv_2d(convnet, 64, 2, activation='relu')
+convnet = max_pool_2d(convnet, 2)
+
+
 
 
 
@@ -111,12 +122,12 @@ if os.path.exists('{}.meta'.format(MODEL_NAME)):
     print "model loaded"
 
 
-train=train_data[:-500]
-test=train_data[:-500]
+'''train=train_data[:-500]
+test=train_data[-500:]'''
 
 #fit
 X=np.array([i[0]for i in train]).reshape(-1,IMG_SIZE,IMG_SIZE,1)
-Y=[i[1]for i in train]
+Y=[i[1] for i in train]
 
 #test accuracy
 test_x=np.array([i[0]for i in train]).reshape(-1,IMG_SIZE,IMG_SIZE,1)
