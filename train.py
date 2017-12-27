@@ -138,7 +138,7 @@ model.fit({'input': X}, {'targets': Y}, n_epoch=10, validation_set=({'input': te
     snapshot_step=500, show_metric=True, run_id=MODEL_NAME)
 
 model.save(MODEL_NAME)
-'''
+
 import matplotlib.pyplot as plt
 #test_data=process_test_data()
 test_data=np.load('test_data.npy')
@@ -172,4 +172,3 @@ for num,data in enumerate(test_data[:12]):
     y.axes.get_xaxis().set_visible(False)
     y.axes.get_yaxis().set_visible(False)
 plt.show()
-'''

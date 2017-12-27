@@ -46,10 +46,11 @@ convnet = max_pool_2d(convnet, 2)
 
 
 convnet = fully_connected(convnet, 1024, activation='relu')
-convnet = dropout(convnet, 0.8)
+convnet = dropout(convnet, 0.5)
 
 convnet = fully_connected(convnet, 8, activation='softmax')
 convnet = regression(convnet, optimizer='adam', learning_rate=LR, loss='categorical_crossentropy', name='targets')
+convnet = dropout(convnet, 0.5)
 
 model = tflearn.DNN(convnet,tensorboard_dir='log')
 
