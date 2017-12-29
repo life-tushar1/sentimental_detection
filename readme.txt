@@ -1,0 +1,2 @@
+IMG SIZE=50
+LR=i2-4
