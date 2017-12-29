@@ -4,7 +4,25 @@ from tflearn.layers.core import input_data, dropout, fully_connected
 from tflearn.layers.estimator import regression
 import numpy as np
 
-
+def label_test(model_out):
+    if np.argmax(model_out)==1:
+        str_label='anger'
+    elif np.argmax(model_out)==2:
+        str_label='contempt'
+    elif np.argmax(model_out)==3:
+        str_label='disgust'
+    elif np.argmax(model_out)==4:
+        str_label='fear'
+    elif np.argmax(model_out)==5:
+        str_label='happiness'
+    elif np.argmax(model_out)==6:
+        str_label='sadness'
+    elif np.argmax(model_out)==7:
+        str_label='surprise'
+    elif np.argmax(model_out)==0:
+        str_label='neutral'
+    return str_label
+    
 def neural_network_model(IMG_SIZE,LR):
     convnet = input_data(shape=[None, IMG_SIZE, IMG_SIZE, 1], name='input')
 

@@ -27,4 +27,4 @@ MODEL_NAME ='sentimentaldetection-{}-{}'.format(LR,'test-5-conv-basic')
 #model=model.train_model(train_data,IMG_SIZE,LR,MODEL_NAME)
 
 #testing of model
-#testing.test(MODEL_NAME,TEST_DIR,IMG_SIZE,LR)
+testing.test(MODEL_NAME,TEST_DIR,IMG_SIZE,LR)
