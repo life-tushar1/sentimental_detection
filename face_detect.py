@@ -12,7 +12,7 @@ font=cv2.FONT_HERSHEY_SIMPLEX
 LR=1e-3
 IMG_SIZE=50
 fc=cv2.CascadeClassifier('/Users/tusharsharma/opencv-3.2.0/data/haarcascades/haarcascade_upperbody.xml')
-MODEL_NAME ='sentimentaldetection-{}-{}'.format(LR,'test-4-conv-basic')
+MODEL_NAME ='sentimentaldetection-{}-{}'.format(LR,'test-5-conv-basic')
 
 convnet = input_data(shape=[None, IMG_SIZE, IMG_SIZE, 1], name='input')
 
@@ -63,7 +63,7 @@ while True:
     face=fc.detectMultiScale(gray,1.01,5)
 
     for (a,b,c,d) in face:#x,y,width,height
-        cv2.rectangle(frame2,(a,b),(a+c,b+d),(0,0,255),2)
+        #cv2.rectangle(frame2,(a,b),(a+c,b+d),(0,0,255),2)
         img2=frame2[b:b+d,a:a+c]
         img2=cv2.resize(cv2.cvtColor(img2,cv2.COLOR_BGR2GRAY),(IMG_SIZE,IMG_SIZE))
         cv2.imshow('test',img2)
