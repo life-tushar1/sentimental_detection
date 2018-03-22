@@ -22,9 +22,11 @@ def label_img(word_label):
 
 data_file1='./train.csv'
 data_file2='./test.csv'
+data_file3='./testprivate.csv'
 
 data = pd.read_csv(data_file1)
 data2= pd.read_csv(data_file2)
+data3= pd.read_csv(data_file2)
 width, height = 48, 48
 faces = []
 label=[]
@@ -35,17 +37,32 @@ for index,row in data.iterrows():
     face = np.asarray(face).reshape(width, height)
     lab=label_img(row['emotion'])
     training_data.append([np.array(face),np.array(lab)])
-shuffle(training_data)
+
 #print training_data
 np.save('train_data.npy',training_data)
 
 faces = []
 label=[]
+
 for index,row in data2.iterrows():
     face = [int(pixel) for pixel in row['pixels'].split(' ')]
     face = np.asarray(face).reshape(width, height)
     lab=label_img(row['emotion'])
     testing_data.append([np.array(face),np.array(lab)])
-shuffle(testing_data)
+
 #print training_data
 np.save('testing_data.npy',testing_data)
+
+testing_data=[]
+
+faces = []
+label=[]
+
+for index,row in data3.iterrows():
+    face = [int(pixel) for pixel in row['pixels'].split(' ')]
+    face = np.asarray(face).reshape(width, height)
+    lab=label_img(row['emotion'])
+    testing_data.append([np.array(face),np.array(lab)])
+
+#print training_data
+np.save('Private_testing_data.npy',testing_data)

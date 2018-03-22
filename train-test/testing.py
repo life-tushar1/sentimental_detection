@@ -4,7 +4,7 @@ import numpy as np
 #import utilities
 import model
 import os
-
+from random import shuffle
 
 
 def test(MODEL_NAME,IMG_SIZE,LR):
@@ -12,7 +12,8 @@ def test(MODEL_NAME,IMG_SIZE,LR):
     if os.path.exists('{}.meta'.format(MODEL_NAME)):
         model1.load(MODEL_NAME)
         print "model loaded"
-    test_data=np.load('testing_data.npy')
+    test_data=np.load('Private_testing_data.npy')
+    shuffle(test_data)
     fig=plt.figure()
     #[neutral,anger,contempt,disgust,fear,happiness,sadness,surprise]
     for num,data in enumerate(test_data[:30]):

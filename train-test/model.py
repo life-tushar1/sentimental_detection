@@ -1,6 +1,6 @@
 import tflearn
-from tflearn.layers.conv import conv_2d, max_pool_2d
-from tflearn.layers.core import input_data, dropout, fully_connected
+from tflearn.layers.conv import conv_2d, max_pool_2d ,avg_pool_2d
+from tflearn.layers.core import input_data, dropout, fully_connected ,flatten
 from tflearn.layers.estimator import regression
 import numpy as np
 import pandas as pd
@@ -48,25 +48,31 @@ def neural_network_model4(IMG_SIZE,LR):
     convnet = input_data(shape=[None, IMG_SIZE, IMG_SIZE, 1], name='input')
 
 
-    convnet = conv_2d(convnet, 48, 2, activation='relu')
-    convnet = max_pool_2d(convnet, 2)
+    convnet = conv_2d(convnet, 64, (5, 5), activation='relu')
+    convnet = max_pool_2d(convnet, (5, 5),strides=(2,2))
 
-    convnet = conv_2d(convnet, 32, 2, activation='relu')
-    convnet = max_pool_2d(convnet, 2)
 
-    convnet = conv_2d(convnet, 64, 2, activation='relu')
-    convnet = max_pool_2d(convnet, 2)
+    convnet = conv_2d(convnet, 64, (3, 3), activation='relu')
+    convnet = conv_2d(convnet, 64, (3, 3), activation='relu')
+    convnet = avg_pool_2d(convnet, (3, 3),strides=(2,2))
+    convnet = dropout(convnet, 0.7)
 
-    convnet = conv_2d(convnet, 128, 2, activation='relu')
-    convnet = max_pool_2d(convnet, 2)
+    convnet = conv_2d(convnet, 128, (3, 3), activation='relu')
+    convnet = conv_2d(convnet, 128, (3, 3), activation='relu')
+    convnet = avg_pool_2d(convnet, (3, 3),strides=(2,2))
+    convnet = dropout(convnet, 0.7)
 
-    convnet = conv_2d(convnet, 256, 2, activation='relu')
+    convnet = flatten(convnet)
+
     convnet = fully_connected(convnet, 1024, activation='relu')
-    convnet = dropout(convnet, 0.2)
+    convnet = dropout(convnet, 0.7)
+
+    convnet = fully_connected(convnet, 1024, activation='relu')
+    convnet = dropout(convnet, 0.7)
 
     convnet = fully_connected(convnet, 7, activation='softmax')
     convnet = regression(convnet, optimizer='adam', learning_rate=LR, loss='categorical_crossentropy', name='targets')
-    convnet = dropout(convnet, 0.2)
+    convnet = dropout(convnet, 0.7)
 
     model = tflearn.DNN(convnet,tensorboard_dir='log')
     return model
@@ -84,6 +90,8 @@ def train_model4(IMG_SIZE,LR,MODEL_NAME,model=False):
     if not model:
         model=neural_network_model4(IMG_SIZE,LR)
 
+    model.load(MODEL_NAME)
+
     #print "yo"
 
     #test accuracy (same as classic ml code for train)
@@ -92,8 +100,8 @@ def train_model4(IMG_SIZE,LR,MODEL_NAME,model=False):
 
     #print "bae"
     #fitting the model into the network
-    model.fit({'input': X}, {'targets': Y}, n_epoch=30, validation_set=({'input': test_x}, {'targets': test_y}),
-        snapshot_step=1500, show_metric=True, run_id=MODEL_NAME)
+    model.fit({'input': X}, {'targets': Y}, n_epoch=3, validation_set=({'input': test_x}, {'targets': test_y}),
+        snapshot_step=256, show_metric=True, run_id=MODEL_NAME)
 
     #saving the model
     model.save(MODEL_NAME)
